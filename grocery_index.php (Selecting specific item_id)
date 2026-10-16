@@ -1,0 +1,30 @@
+<?php require_once 'grocery_dbConfig.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netherlands Grocery List</title>
+</head>
+<body>
+    
+    <h1>Grocery List</h1>
+</body>
+    <?php
+    //Selecting a specified record using the item_id.
+    $stmt = $pdo -> prepare("SELECT * FROM netherlands_grocery_items WHERE item_id = 49");
+    if ($stmt->execute()) {
+        $grocery = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //grocery is the variable, fetching the sql command in the $stmt.
+        //using the fetchAll()method to retrieve all data we are looking for in the prepare method. in this case, the item with an id 49.
+        //using the PDO::FETCH_ASSOC to return an associative array of the data.
+        echo "<pre>";
+        print_r($grocery); //using the print_r() and <pre> tags to display the data in a readable format. This will not display the data in table format
+        echo "</pre>";
+    } else { //will show if the query fails to find the specific data you are looking for.
+        echo "<p>No items are found in the database.</p>";
+    }
+    ?>
+</html>
