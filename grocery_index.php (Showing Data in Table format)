@@ -1,0 +1,54 @@
+<?php require_once 'grocery_dbConfig.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netherlands Grocery List</title>
+</head>
+<body>
+    
+    <h1>Grocery List</h1>
+</body>
+    <?php
+    //Selecting ALl data but displaying them in html table format.
+    //run the query first. same one to the SELECT all command earlier.
+    $stmt = $pdo->prepare("SELECT * FROM netherlands_grocery_items");
+    if ($stmt->execute()) {
+        $grocery = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($grocery) {
+            
+    ?>
+    <!--Creating the table in html-->
+    <table border = 1> <!--Just a little style for the table :) 
+        <tr> <!--This is for the name of the columns-->
+            <th>ID</th>
+            <th>Item Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock Quantity</th>
+            <th>Brand</th>
+        </tr>
+        <?php foreach ($grocery as $g) { 
+            // foreach loop is to iterate through the data and display them in the table
+            // it is specified to be placed here and not inluded in the first php line of code for the uniformity of the table.
+        ?>
+         <tr><!--This is for the datas of the table-->
+            <td><?php echo $g['item_id']?></td>
+            <td><?php echo $g['item_name']?></td>
+            <td><?php echo $g['category']?></td>
+            <td><?php echo $g['price']?></td>
+            <td><?php echo $g['stock_quantity']?></td>
+            <td><?php echo $g['brand']?></td>
+         </tr>
+         <?php } ?>
+    </table>
+    <?php
+        } else {
+            echo "<p>No grocery items found.</p>"; //will show if the query fails to run
+        }
+    }
+    ?>
+</html>
