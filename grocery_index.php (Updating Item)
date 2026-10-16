@@ -1,0 +1,31 @@
+<?php require_once 'grocery_dbConfig.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netherlands Grocery List</title>
+</head>
+<body>
+    
+    <h1>Grocery List</h1>
+</body>
+    <?php
+    //Updating an item in the grocery list. This case, an item with id 30
+    $update = "UPDATE netherlands_grocery_items
+               SET item_name = ?, category = ?, price = ?, stock_quantity = ?, brand = ? 
+               WHERE item_id = 30
+               "; //setting up the item you want to update. "WHERE" is used to find the item you want to update
+    $stmt = $pdo->prepare($update); //preparing the sql command
+    $executeQuery = $stmt->execute(
+        ["Milk Chocolate Bar 90g", "Snack", 2.59, 100, "Tony's Chocolonely Reep Melk"]
+    ); //executing the query
+    if ($executeQuery) {
+        echo "<p>Item updated successfully.</p>"; //will show if the query is successful
+    } else {
+        echo "<p>Update Unsuccessful.</p>"; //will show if the query is unsuccessful
+    }
+    ?>
+</html>
