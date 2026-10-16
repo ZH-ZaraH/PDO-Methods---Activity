@@ -1,0 +1,27 @@
+<?php require_once 'grocery_dbConfig.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netherlands Grocery List</title>
+</head>
+<body>
+    
+    <h1>Grocery List</h1>
+</body>
+    <?php
+    //Deleting an item from the grocery list.
+    $delete = "DELETE FROM netherlands_grocery_items WHERE item_id = 101"; 
+    //this is where you input the sql command. in this case deleting a specific data. in this case using the item_id.
+    $stmt = $pdo->prepare($delete); //prepares the sql command in the delete variable
+    $executeQuery = $stmt->execute(); //executing the query.
+    if ($executeQuery) {
+        echo "<p>Item deleted successfully</p>";
+    } else {
+        echo "<p>Item failed to be deleted.</p>";
+    }
+    ?>
+</html>
