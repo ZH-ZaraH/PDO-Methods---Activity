@@ -1,0 +1,35 @@
+<?php require_once 'grocery_dbConfig.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netherlands Grocery List</title>
+</head>
+<body>
+    
+    <h1>Grocery List</h1>
+</body>
+    <?php
+    //inserting new record
+        $insert = "INSERT INTO netherlands_grocery_items (item_name, category, price, stock_quantity, brand)
+                    VALUES (?, ?, ?, ?, ?)";
+        //insert is the variable. VALUES have question marks as placeholders to prevent SQL injection and handle special characters.
+        //You might notice there is no "item_id" in the parenthesis. item_id is auto_incremented in my database. Thanks to AI when creating the database :)
+        $stmt = $pdo->prepare($insert); //prepares the variable insert
+        $executeQuery = $stmt->execute([ //add here the record following the order inside the parenthesis
+            "Milk Chocolate Bar 90g", 
+            "Snack", 
+            2.69, 
+            100, 
+            "Tony's Chocolonely Reep Melk"
+        ]);
+        if ($executeQuery) {
+            echo "<p>Item is added successfully</p>"; //will show if query is successfull.
+        } else {
+            echo "<p>Query failed to execute."; //will show if query fails.
+        }
+    ?>
+</html>
